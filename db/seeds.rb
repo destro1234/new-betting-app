@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Game.create(home_team: "Knicks", away_team: "Bulls")
+Game.create(home_team: "Hawks", away_team: "Lakers")
+Game.create(home_team: "Mavericks", away_team: "Bucks")
+Game.create(home_team: "76ers", away_team: "Magic")
+Game.create(home_team: "TrailBlazers", away_team: "Suns")
+Game.create(home_team: "Warriors", away_team: "Celtics")
+Game.create(home_team: "Thunder", away_team: "Cava.iers")
+Game.create(home_team: "Kings", away_team: "Raptors")
+Game.create(home_team: "Rockets", away_team: "Wizards")
+Game.create(home_team: "Grizzlies", away_team: "Nets")
+
