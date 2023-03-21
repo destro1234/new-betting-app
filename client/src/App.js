@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import Header from './components/Header.js'
 import Login from './components/Login.js'
+import GameLog from './components/GameLog.js'
 import './App.css';
 
 
@@ -20,17 +21,18 @@ function App() {
       }
     });
   }, []);
-<Header />
+
   if (user) {
     return ( <React.Fragment>
       <Header />
       <h2>Welcome, {user.username}!</h2>
+      <GameLog />
       </React.Fragment>);
   } else {
     return (
     <React.Fragment>
       <Header />
-      <Login onLogin={setUser} />
+      <Login onLogin={setUser} setCurrentUser={setUser} />
     </React.Fragment>
     );
   }
