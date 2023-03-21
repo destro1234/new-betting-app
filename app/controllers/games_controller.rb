@@ -1,7 +1,9 @@
 class GamesController < ApplicationController
 
     def index
-        games = Game.all
-        render json: games
+        return ({
+            <h1>Hello World</h1>
+    }
+        )
     end
 end

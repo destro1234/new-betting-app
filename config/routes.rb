@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   # get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
   # get '/', to: "games#index"
   # root 'games#index'
+  resources :users, only: [:create, :index, :show]
   resources :games, only: [:index]
 end

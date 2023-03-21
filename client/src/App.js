@@ -2,25 +2,27 @@ import logo from './logo.svg';
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom' 
 
-import Home from './components/Header.js'
+import Header from './components/Header.js'
+import Login from './components/Login.js'
 import './App.css';
 
 
 
 function App() {
   return (
-    <h1>Hello world</h1>
-    // <React.Fragment>
+    <React.Fragment>
+      <Header />
+      <Login />
 
-    // <Router>
-    //     <Routes>
-    //       {/* <Route path="/walks" element={<Walk dogs={dogs} setDogs={setDogs} />}></Route> */}
-    //       <Route path="/" element={<Home />}></Route>
+    {/* // <Router> */}
+    {/* //     <Routes> */}
+          {/* // <Route path="/walks" element={<Walk dogs={dogs} setDogs={setDogs} />}></Route> */}
+    {/* //       <Route path="/" element={<Header />}></Route> */}
 
           
-    //     </Routes>
-    //   </Router>
-    //   </React.Fragment>
+    {/* //     </Routes> */}
+    {/* //    </Router> */}
+       </React.Fragment>
 
       
     
