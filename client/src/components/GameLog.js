@@ -17,7 +17,7 @@ function GameLog () {
             <ol>
                 {games.map((g) => {
                     console.log(g)
-                    return <li>{g.home_team} vs . {g.away_team}</li>
+                    return <li>{g.home_team} vs. {g.away_team}</li>
                 })}
             </ol>
         </div>

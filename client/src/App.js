@@ -10,29 +10,29 @@ import './App.css';
 
 function App() {
 
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   // <Header />
 
   useEffect(() => {
     fetch("/me").then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUser(user));
+        response.json().then((user) => setCurrentUser(user));
       }
     });
   }, []);
 
-  if (user) {
+  if (currentUser) {
     return ( <React.Fragment>
       <Header />
-      <h2>Welcome, {user.username}!</h2>
+      <h2>Welcome, {currentUser.username}!</h2>
       <GameLog />
       </React.Fragment>);
   } else {
     return (
     <React.Fragment>
       <Header />
-      <Login onLogin={setUser} setCurrentUser={setUser} />
+      <Login onLogin={setCurrentUser} setCurrentUser={setCurrentUser} />
     </React.Fragment>
     );
   }
