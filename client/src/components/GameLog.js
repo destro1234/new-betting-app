@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import GameCard from "./GameCard.js"
 
-function GameLog () {
+function GameLog ({current_user}) {
     const [games, setGames ] = useState([])
 
     
@@ -9,6 +10,8 @@ function GameLog () {
             .then( r => r.json())
             .then( data => setGames(data))
         }, [])
+
+       console.log(games)
         
     return (
         
@@ -17,7 +20,7 @@ function GameLog () {
             <ol>
                 {games.map((g) => {
                     console.log(g)
-                    return <li>{g.home_team} vs. {g.away_team}</li>
+                    return <GameCard game={g} user={current_user} />
                 })}
             </ol>
         </div>

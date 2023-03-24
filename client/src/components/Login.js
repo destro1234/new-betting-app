@@ -12,7 +12,7 @@ function Login({ onLogin, setCurrentUser }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username }),
+        body: JSON.stringify({ username, password}),
       }).then((r) => {
         if (r.ok) {
           r.json().then((user) => onLogin(user));
@@ -40,6 +40,8 @@ function Login({ onLogin, setCurrentUser }) {
                 res.json()
             }
         })
+
+       
     }
   
     return (
@@ -62,7 +64,7 @@ function Login({ onLogin, setCurrentUser }) {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br></br>
-        <button type="submit" onClick={(e) => onSignup(e)}>Signup</button>
+        <button onClick={(e) => onSignup(e)}>Signup</button>
         <button type="submit">Login</button>
       </form>
     );

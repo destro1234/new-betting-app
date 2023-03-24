@@ -1,4 +1,4 @@
 class Game < ApplicationRecord
-    has_many :game_bets
-    has_many :bets, through: :game_bets
+   has_many :predictions
+   has_many :users, through: :predictions
 end
