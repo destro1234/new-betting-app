@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # root 'games#index'
   resources :users, only: [:create, :index, :show]
   resources :games, only: [:index]
+  resources :predictions, only:[:create]
 
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'

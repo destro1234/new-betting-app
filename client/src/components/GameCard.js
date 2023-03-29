@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import BetForm from './BetForm'
+import PredictionForm from './PredictionForm'
 
-function GameCard({game}) {
+function GameCard({games, game, current_user, setGames, addPrediction}) {
 
     const [clicked, setClicked ] = useState(false)
 
@@ -9,13 +9,16 @@ function GameCard({game}) {
         setClicked(!clicked)
     }
 
+    
+
+
     return (
     <div>
 
     <li>{game.home_team} vs. {game.away_team}</li>
 
-    <button onClick={handleClick}>Make Bet!</button>
-    {clicked ? <BetForm game={ game } /> : null }
+    <button onClick={handleClick}>Make Prediction!</button>
+    {clicked ? <PredictionForm current_user={current_user} game={ game } games={games} addPrediction={addPrediction}/> : null }
 
     </div>
     )
