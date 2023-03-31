@@ -22,14 +22,14 @@ function GameLog ({current_user}) {
             else {
                 game.predictions =[prediction]
             }
-    
-            console.log(game.predictions)
             const filteredGames = games.filter( (g) => { return g.id !== prediction.game_id})
         
             const newGames = [...filteredGames, game]
             
             setGames(newGames.sort((a, b) => { return a.id - b.id }))
               }
+
+              
 
        
         

@@ -7,10 +7,11 @@ Rails.application.routes.draw do
   # root 'games#index'
   resources :users, only: [:create, :index, :show]
   resources :games, only: [:index]
-  resources :predictions, only:[:create]
+  resources :predictions, only:[:create, :destroy]
 
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get "/me", to: "users#show"
+  delete '/predictions', to: "predictions#destroy"
 
 end
