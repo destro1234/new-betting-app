@@ -1,22 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
+import EditPredictionForm from "./EditPredictionForm.js"
 
-function PredictionsCard ({current_user, prediction}) {
-    console.log(prediction.game)
+function PredictionsCard ({ game, handleDelete, editPrediction }) {
+
+    const [ editClicked, setEditClicked] = useState(false)
+
+    function showForm() {
+        setEditClicked(!editClicked)
+    }
+
+    
+
     return(
         <div>
+            <li>
+                <h2>{game.home_team} vs. {game.away_team}</h2>
+                    <div>
+                        {game.predictions.map((p) => {
+                            return (
+                                
+                                    <div>
+                                        <h3>Prediction</h3>
+                                            <h4>WINNER:</h4>
+                                            <p>{p.winner}</p>
+                                            
+                                            <h4>REASON:</h4>
+                                            <p>"{p.reason}"</p>
+                                    
+                                        <button onClick={(event) => handleDelete(event, p, game)}> Delete Prediction </button>
+                                        <button onClick={(event) => showForm(event)}> Edit Prediction </button>
 
-
-                    <ul>
-                        <div>
-                        {/* <h3>{prediction.game.home_team} vs. {prediction.game.away_team}</h3> */}
-
-                            <h3>Predictions</h3>
-                    <li>WINNER: {prediction.winner}</li>
-                    <li>REASON: {prediction.reason} </li>
-                    </div>
-                    </ul>
-                
-        </div>
+                                        { editClicked ? <EditPredictionForm editPrediction={editPrediction} prediction={p} game={game} showForm={showForm}/> : null }
+                                        </div>
+                                        )
+                                                    }
+                                                )}
+                </div>
+                 </li>
+                </div>
+                    
 
     )
     

@@ -11,6 +11,21 @@ class PredictionsController < ApplicationController
         render json:{}
         
     end
+
+    def update
+        prediction = Prediction.find_by(id: params[:id])
+        prediction.update(predictions_params)
+        render json: prediction
+    end
+
+    # patch '/walks/:id' do
+    #     walk = Walk.find(params[:id])
+    #     walk.update(
+    #       dogwalker: params[:dogwalker],
+    #       starttime: params[:starttime],
+    #       length: params[:length])
+    #     walk.to_json
+    #   end
     
 
     private 

@@ -20,6 +20,16 @@ function PredictionLog({current_user, setGames,  games}) {
         setGames(newGames.sort((a, b) => { return a.id - b.id }))
     }
 
+    function editPrediction(prediction, game, showForm) {
+        let filteredPredictions = game.predictions.filter( (p) => p.id !== prediction.id )
+        const newPredictions = [...filteredPredictions, prediction]
+        game.predictions = newPredictions
+        const editedGames = [...games]
+        setGames(editedGames.sort((a, b) => { return a.id - b.id }))
+        showForm()
+    }
+ 
+
     return (
         <div>
             <h1>{current_user.username}'s Predictions: </h1>
@@ -28,26 +38,8 @@ function PredictionLog({current_user, setGames,  games}) {
                     if (g.predictions.length > 0) {
                         return (
                             <div>
-                                <li>
-                                    <h3>{g.home_team} vs. {g.away_team}</h3>
-                            <div>
-                                {g.predictions.map((p) => {
-                                    return (
-                                        <ul>
-                                            <div>
-                                                <h3>Prediction</h3>
-                                                <li>WINNER: {p.winner}</li>
-                                                <li>REASON: {p.reason} </li>
-                                            </div>
-                                            <button onClick={(event) => handleDelete(event, p, g)}> Delete Prediction </button>
-                                        </ul>
-                                            )
-                                            }
-                                        )}
-                </div>
-                 </li>
-                </div>
-                    )}})}
+                                <PredictionsCard game={g} handleDelete={handleDelete} editPrediction={editPrediction}/>
+                            </div>)}})}
                     </ol>
         </div>
     )

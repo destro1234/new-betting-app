@@ -41,9 +41,12 @@ function PredictionForm ({game, current_user, addPrediction}) {
         <form>
           <h3> Game Prediction: </h3>
           <label>Choose winner: </label>
+          <br></br>
           <input onChange={handleWinner}type="text" placeholder="winner"></input>
+          <br></br>
           <label> Reason: </label>
-          <input onChange={handleReason} type="textarea" placeholder="reason"></input>
+          <br></br>
+          <textarea rows={4} cols={50} onChange={handleReason} type="text" placeholder="reason"></textarea>
           <button onClick={handleSubmit} type="submit">Submit</button>
         </form>
         </div>
