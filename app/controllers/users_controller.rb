@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
     def show
         user = User.find_by(id: session[:user_id])
-        render json: user, include: :predictions
+        render json: user, include: :games
     end
 
     private

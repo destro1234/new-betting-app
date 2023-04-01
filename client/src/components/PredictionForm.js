@@ -11,7 +11,7 @@ function PredictionForm ({game, current_user, addPrediction}) {
         let new_prediction = {winner: winner, reason: reason, game_id: game.id, user_id: current_user.id }
         
 
-        fetch('/predictions', {
+        fetch(`users/${current_user.id}/predictions`, {
             
             method: "POST",
             headers: {'Content-Type' : 'application/json'},

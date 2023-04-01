@@ -1,7 +1,17 @@
 class PredictionsController < ApplicationController
 
+    def index
+        predictions = Prediction.all
+        render json: predictions
+    end
+
     def create
         prediction = Prediction.create(predictions_params)
+        render json: prediction, include: :game
+    end
+
+    def show
+        prediction = Prediction.find_by(id: params[:id])
         render json: prediction, include: :game
     end
 
@@ -17,15 +27,6 @@ class PredictionsController < ApplicationController
         prediction.update(predictions_params)
         render json: prediction
     end
-
-    # patch '/walks/:id' do
-    #     walk = Walk.find(params[:id])
-    #     walk.update(
-    #       dogwalker: params[:dogwalker],
-    #       starttime: params[:starttime],
-    #       length: params[:length])
-    #     walk.to_json
-    #   end
     
 
     private 

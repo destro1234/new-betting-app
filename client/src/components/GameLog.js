@@ -4,6 +4,8 @@ import PredictionLog from './PredictionLog.js'
 
 function GameLog ({current_user}) {
     const [games, setGames ] = useState([])
+    const [predictions, setPredictions] = useState([])
+
 
     
         useEffect(() => {
@@ -12,26 +14,33 @@ function GameLog ({current_user}) {
             .then( data => setGames(data))
         }, [])
 
+        useEffect(() => {
+            fetch(`/users/${current_user.id}/predictions`)
+            .then( r => r.json())
+            .then(data => setPredictions(data))
+        }, [])
+
         function addPrediction (prediction, game) {
 
-            if (game.predictions) {
-                let newPredictions = [...game.predictions, prediction]
-                game.predictions = newPredictions
+            // if (predictions) {
+                let newPredictions = [...predictions, prediction]
+                setPredictions(newPredictions.sort((a,b) => { return a.id - b.id }))
 
-            }
-            else {
-                game.predictions =[prediction]
-            }
-            const filteredGames = games.filter( (g) => { return g.id !== prediction.game_id})
+            // }
+            // else {
+                // game.predictions =[prediction]
+            // }
+    
+            // const filteredGames = games.filter( (g) => { return g.id !== prediction.game_id})
         
-            const newGames = [...filteredGames, game]
+            // const newGames = [...filteredGames, game]
             
-            setGames(newGames.sort((a, b) => { return a.id - b.id }))
+            // setGames(newGames.sort((a, b) => { return a.id - b.id }))
+            
               }
 
-              
 
-       
+
         
     return (
         
@@ -42,7 +51,8 @@ function GameLog ({current_user}) {
                     return <GameCard key={g.id} game={g} current_user={current_user} addPrediction={addPrediction} />
                 })}
             </ol>
-            <PredictionLog key={current_user.id} current_user={current_user} games={games} setGames={setGames}/>
+            
+            <PredictionLog key={current_user.id} current_user={current_user} games={games} setGames={setGames} predictions={predictions} setPredictions={setPredictions}/>
 
         </div>
     )
