@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
-function PredictionForm ({game, current_user, addPrediction}) {
+function PredictionForm ({game, current_user, addPrediction, clicked, setClicked}) {
 
     const [winner, setWinner] = useState(" ")
     const [reason, setReason] = useState(" ")
 
+   
     function handleSubmit(event) {
 
         event.preventDefault()
@@ -21,12 +22,9 @@ function PredictionForm ({game, current_user, addPrediction}) {
         .then( data => {
             addPrediction(data, game)
         })
+        setClicked(!clicked)
     }
-
     
-
-
-
     function handleWinner(event) {
         setWinner(event.target.value)
     }

@@ -3,12 +3,11 @@ import PredictionsCard from './PredictionsCard.js'
 
 function PredictionLog({current_user, setGames,  games, predictions, setPredictions }) {
 
-
-
+console.log(current_user.predictions)
+console.log(predictions)
     
 
     function handleDelete(event, prediction) {
-        console.log(prediction)
         fetch(`users/${current_user.id}/predictions/${prediction.id}`, {
             method: 'DELETE',
         })

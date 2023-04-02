@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :index, :show] do 
     resources :predictions, only: [:create, :destroy, :update, :show, :index]
   end
+
+  # resources :predictions, only: [:create, :destroy, :update, :show, :index]
+
   resources :games, only: [:index]
 
   post '/login', to: 'sessions#create'

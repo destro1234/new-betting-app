@@ -10,6 +10,10 @@ import './App.css';
 function App() {
 
   const [currentUser, setCurrentUser] = useState(null);
+  const [predictions, setPredictions] = useState([])
+
+
+  
 
 
   useEffect(() => {
@@ -23,17 +27,22 @@ function App() {
     });
   }, []);
 
+  
+
+
  function logOut() {
   fetch("/logout", {
     method: "DELETE",
-  }).then(() => setCurrentUser(null));
+  }).then(() => {
+    setCurrentUser(null)
+  });
  }
 
   if (currentUser) {
     return ( <React.Fragment>
       <Header />
       <h2>Welcome, {currentUser.username}!</h2>
-      <GameLog current_user={currentUser} />
+      <GameLog current_user={currentUser} predictions={predictions} setPredictions={setPredictions } />
       <button onClick={logOut}>LogOut</button>
       </React.Fragment>);
   } else {

@@ -1,8 +1,15 @@
 class PredictionsController < ApplicationController
 
     def index
-        predictions = Prediction.all
-        render json: predictions
+        
+        if params[:user_id]
+            user = User.find_by(id: params[:user_id])
+            predictions = user.predictions
+        else
+            predictions = Prediction.all
+        end
+        
+        render json: predictions, include: :user
     end
 
     def create

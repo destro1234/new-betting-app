@@ -14,29 +14,23 @@ function GameLog ({current_user}) {
             .then( data => setGames(data))
         }, [])
 
-        useEffect(() => {
-            fetch(`/users/${current_user.id}/predictions`)
-            .then( r => r.json())
-            .then(data => setPredictions(data))
-        }, [])
+            useEffect(() => {
+                fetch(`/users/${current_user.id}/predictions`)
+                .then( r => r.json())
+                .then(data => {
+                    console.log(current_user.id)
+                    console.log(data)
+                    setPredictions(data)}
+                    )
+            }, [])
 
         function addPrediction (prediction, game) {
+            let newPredictions = []
+            if (prediction.user_id == current_user.id) {
+                newPredictions = [...predictions, prediction]
 
-            // if (predictions) {
-                let newPredictions = [...predictions, prediction]
-                setPredictions(newPredictions.sort((a,b) => { return a.id - b.id }))
-
-            // }
-            // else {
-                // game.predictions =[prediction]
-            // }
-    
-            // const filteredGames = games.filter( (g) => { return g.id !== prediction.game_id})
-        
-            // const newGames = [...filteredGames, game]
-            
-            // setGames(newGames.sort((a, b) => { return a.id - b.id }))
-            
+            }
+            setPredictions(newPredictions)            
               }
 
 
