@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 function EditPredictionForm ({prediction, editPrediction, game, showForm, current_user }) {
-
     const [winner, setWinner] = useState("")
     const [reason, setReason] = useState("")
 
@@ -15,7 +14,6 @@ function EditPredictionForm ({prediction, editPrediction, game, showForm, curren
 
     function handleUpdate (event) {
         event.preventDefault()
-
         fetch(`users/${current_user.id}/predictions/${prediction.id}`, {
             method: "PATCH",
             headers: { "Content-Type" : "application/json"},

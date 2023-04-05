@@ -19,11 +19,11 @@ function PredictionLog({current_user, predictions, setPredictions }) {
         setPredictions(deletedPredictions)
     }
 
-    function editPrediction(p, showForm) {
+    function editPrediction(p, game,  showForm) {
         let filteredPredictions = predictions.filter( (prediction) => prediction.id !== p.id )
         const newPredictions = [...filteredPredictions, p]
         setPredictions(newPredictions)
-        showForm( )
+        showForm()
     }
 
     

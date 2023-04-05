@@ -42,7 +42,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     private 
 
     def predictions_params
-        params.permit(:id, :winner, :reason, :game_id, :user_id)
+        params.permit(:id, :winner, :reason, :game_id, :user_id, :prediction)
     end
 
     def record_not_found
