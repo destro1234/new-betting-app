@@ -26,7 +26,7 @@ function GameLog ({current_user}) {
 
         function addPrediction (prediction, game) {
             let newPredictions = []
-            if (prediction.user_id == current_user.id) {
+            if (prediction.user_id === current_user.id) {
                 newPredictions = [...predictions, prediction]
 
             }

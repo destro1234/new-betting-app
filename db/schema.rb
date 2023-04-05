@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2023_03_20_154944) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "games", force: :cascade do |t|
     t.string "home_team"
     t.string "away_team"

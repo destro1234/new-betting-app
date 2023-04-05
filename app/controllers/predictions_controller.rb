@@ -1,5 +1,7 @@
 class PredictionsController < ApplicationController
 
+rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
     def index
         
         if params[:user_id]
@@ -18,14 +20,15 @@ class PredictionsController < ApplicationController
     end
 
     def show
-        prediction = Prediction.find_by(id: params[:id])
+        prediction = Prediction.find!(params[:id])
         render json: prediction, include: :game
     end
 
     def destroy
-        prediction = Prediction.find_by(id: params[:id])
+        prediction = Prediction.find!(params[:id])
         prediction.destroy
-        render json:{}
+        head :no_content
+        # render json:{}
         
     end
 
@@ -40,6 +43,11 @@ class PredictionsController < ApplicationController
 
     def predictions_params
         params.permit(:id, :winner, :reason, :game_id, :user_id)
+    end
+
+    def record_not_found
+        render json: { error: "Prediction not found" }, status: :not_found
+
     end
 
 end
