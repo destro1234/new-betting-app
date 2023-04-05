@@ -22,11 +22,13 @@ function GameLog ({current_user}) {
                     console.log(data)
                     setPredictions(data)}
                     )
-            }, [])
+            }, [current_user.id])
 
         function addPrediction (prediction, game) {
+            console.log(prediction)
+            console.log(current_user.id)
             let newPredictions = []
-            if (prediction.user_id === current_user.id) {
+            if (prediction.id && prediction.user_id === current_user.id) {
                 newPredictions = [...predictions, prediction]
 
             }

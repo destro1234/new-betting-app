@@ -1,10 +1,8 @@
-import React, { useEffect, useState }  from 'react'
+import React  from 'react'
 import PredictionsCard from './PredictionsCard.js'
 
-function PredictionLog({current_user, setGames,  games, predictions, setPredictions }) {
+function PredictionLog({current_user, predictions, setPredictions }) {
 
-console.log(current_user.predictions)
-console.log(predictions)
     
 
     function handleDelete(event, prediction) {
@@ -21,13 +19,10 @@ console.log(predictions)
         setPredictions(deletedPredictions)
     }
 
-    function editPrediction(p, game, showForm) {
+    function editPrediction(p, showForm) {
         let filteredPredictions = predictions.filter( (prediction) => prediction.id !== p.id )
         const newPredictions = [...filteredPredictions, p]
         setPredictions(newPredictions)
-        // game.predictions = newPredictions
-        // const editedGames = [...games]
-        // setGames(editedGames.sort((a, b) => { return a.id - b.id }))
         showForm( )
     }
 
@@ -42,10 +37,10 @@ console.log(predictions)
                     
                         
                         return (
-                            <div>
+                            
                                 
-                               <PredictionsCard handleDelete={handleDelete} editPrediction={editPrediction} current_user={current_user} prediction={p}/>
-                            </div>)
+                               <PredictionsCard key={p.id} handleDelete={handleDelete} editPrediction={editPrediction} current_user={current_user} prediction={p}/>
+                            )
                         
                         })}
                     </ol>

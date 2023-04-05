@@ -15,7 +15,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     end
 
     def create
-        prediction = Prediction.create(predictions_params)
+        prediction = Prediction.create!(predictions_params)
         render json: prediction, include: :game
     end
 
@@ -25,10 +25,10 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     end
 
     def destroy
-        prediction = Prediction.find!(params[:id])
+        prediction = Prediction.find(params[:id])
         prediction.destroy
-        head :no_content
-        # render json:{}
+        # head :no_content
+        render json:{}
         
     end
 

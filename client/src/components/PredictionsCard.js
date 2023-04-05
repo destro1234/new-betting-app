@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import EditPredictionForm from "./EditPredictionForm.js"
 
 function PredictionsCard ({current_user, handleDelete, editPrediction, prediction }) {

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 function PredictionForm ({game, current_user, addPrediction, clicked, setClicked}) {
 
-    const [winner, setWinner] = useState(" ")
-    const [reason, setReason] = useState(" ")
+    const [winner, setWinner] = useState(null)
+    const [reason, setReason] = useState(null)
 
    
     function handleSubmit(event) {
