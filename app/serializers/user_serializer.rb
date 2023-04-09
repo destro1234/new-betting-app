@@ -6,7 +6,8 @@ class UserSerializer < ActiveModel::Serializer
       {
         winner: p.winner,
         reason: p.reason,
-        game_description: "#{p.game.home_team} vs. #{p.game.away_team}"
+        game_description: "#{p.game.home_team} vs. #{p.game.away_team}",
+        prediction: p
 
       }
   

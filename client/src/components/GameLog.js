@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import GameCard from "./GameCard.js"
 import PredictionLog from './PredictionLog.js'
 
-function GameLog ({current_user, setCurrentUser, setPredictions, predictions }) {
+function GameLog ({current_user, setCurrentUser }) {
     const [games, setGames ] = useState([])
     
 
@@ -13,20 +13,10 @@ function GameLog ({current_user, setCurrentUser, setPredictions, predictions }) 
             .then( data => setGames(data))
         }, [])
 
-            // useEffect(() => {
-            //     fetch(`/users/${current_user.id}/predictions`)
-            //     .then( r => r.json())
-            //     .then(data => {
-            //         // console.log(current_user.id)
-            //         // console.log(data)
-            //         setPredictions(data)}
-            //         )
-            // }, [current_user.id])
-
-        function addPrediction (prediction, game) {
-            
+        function addPrediction (prediction) {
+            console.log(prediction)
             let newUser = {...current_user}
-            let newTest = {winner: prediction.winner, reason: prediction.reason, game_description: `${prediction.game.home_team} vs. ${prediction.game.away_team}`}
+            let newTest = {winner: prediction.winner, reason: prediction.reason, game_description: `${prediction.game.home_team} vs. ${prediction.game.away_team}`, prediction: prediction}
            if (current_user.predictions) {
             newUser.predictions = [...current_user.predictions, prediction]
             newUser.test = [...current_user.test, newTest]
