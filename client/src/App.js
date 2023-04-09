@@ -21,6 +21,7 @@ function App() {
       if (response.ok) {
         response.json().then((user) => {
           setCurrentUser(user)
+          console.log(user)
         
         });
       }
@@ -37,12 +38,12 @@ function App() {
     setCurrentUser(null)
   });
  }
-
+// console.log("hello")
   if (currentUser) {
     return ( <React.Fragment>
       <Header />
       <h2>Welcome, {currentUser.username}!</h2>
-      <GameLog current_user={currentUser} predictions={predictions} setPredictions={setPredictions } />
+      <GameLog current_user={currentUser} setCurrentUser={setCurrentUser} predictions={predictions} setPredictions={setPredictions} />
       <button onClick={logOut}>LogOut</button>
       </React.Fragment>);
   } else {

@@ -1,8 +1,10 @@
 import React  from 'react'
 import PredictionsCard from './PredictionsCard.js'
 
-function PredictionLog({current_user, predictions, setPredictions }) {
+function PredictionLog({current_user, predictions, setPredictions, setCurrentUser }) {
 
+
+    // console.log(current_user.test)
     
 
     function handleDelete(event, prediction) {
@@ -15,9 +17,22 @@ function PredictionLog({current_user, predictions, setPredictions }) {
     }
 
     function deletePrediction(p) {
-        let deletedPredictions = predictions.filter( (prediction) => prediction.id !== p.id )
-        setPredictions(deletedPredictions)
+        let predIndx = current_user.predictions.findIndex((pred) => { return pred.id === p.id})
+        current_user.predictions.splice(predIndx, 1)
+        console.log(current_user)
+        const newUser = [current_user]
+        console.log(newUser)
+        // setPredictions(deletedPredictions)
+        setCurrentUser(newUser)
+        // console.log(current_user)
     }
+
+    // function deleteWalk(walk) {
+    //     let index = dog.walks.findIndex((w) => { return w.id === walk.id})
+    //     dog.walks.splice(index, 1)
+    //     const newDogs = [...dogs]
+    //     setDogs(newDogs)
+    // }
 
     function editPrediction(p, game,  showForm) {
         let filteredPredictions = predictions.filter( (prediction) => prediction.id !== p.id )
@@ -33,7 +48,7 @@ function PredictionLog({current_user, predictions, setPredictions }) {
         <div>
             <h1>{current_user.username}'s Predictions: </h1>
             <ol>
-                { predictions.map((p) => {
+                { current_user.test ? current_user.test.map((p) => {
                     
                         
                         return (
@@ -42,7 +57,7 @@ function PredictionLog({current_user, predictions, setPredictions }) {
                                <PredictionsCard key={p.id} handleDelete={handleDelete} editPrediction={editPrediction} current_user={current_user} prediction={p}/>
                             )
                         
-                        })}
+                        }) : null}
                     </ol>
         </div>
     )

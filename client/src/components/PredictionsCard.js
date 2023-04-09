@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import EditPredictionForm from "./EditPredictionForm.js"
 
 function PredictionsCard ({current_user, handleDelete, editPrediction, prediction }) {
+    // console.log(prediction)
 
     const [ editClicked, setEditClicked] = useState(false)
 
@@ -19,7 +20,7 @@ function PredictionsCard ({current_user, handleDelete, editPrediction, predictio
                     
                                     
                                     <div>
-                                        <h2>{prediction.game.home_team} vs. {prediction.game.away_team}</h2>
+                                        <h2>{prediction.game_description}</h2>
                                         <br></br>
                                         <h3>Prediction</h3>
                                             <h4>WINNER:</h4>

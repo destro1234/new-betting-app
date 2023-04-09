@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react'
 import GameCard from "./GameCard.js"
 import PredictionLog from './PredictionLog.js'
 
-function GameLog ({current_user}) {
+function GameLog ({current_user, setCurrentUser, setPredictions, predictions }) {
     const [games, setGames ] = useState([])
-    const [predictions, setPredictions] = useState([])
-
+    
 
     
         useEffect(() => {
@@ -14,25 +13,30 @@ function GameLog ({current_user}) {
             .then( data => setGames(data))
         }, [])
 
-            useEffect(() => {
-                fetch(`/users/${current_user.id}/predictions`)
-                .then( r => r.json())
-                .then(data => {
-                    console.log(current_user.id)
-                    console.log(data)
-                    setPredictions(data)}
-                    )
-            }, [current_user.id])
+            // useEffect(() => {
+            //     fetch(`/users/${current_user.id}/predictions`)
+            //     .then( r => r.json())
+            //     .then(data => {
+            //         // console.log(current_user.id)
+            //         // console.log(data)
+            //         setPredictions(data)}
+            //         )
+            // }, [current_user.id])
 
         function addPrediction (prediction, game) {
-            console.log(prediction)
-            console.log(current_user.id)
-            let newPredictions = []
-            if (prediction.id && prediction.user_id === current_user.id) {
-                newPredictions = [...predictions, prediction]
+            
+            let newUser = {...current_user}
+            let newTest = {winner: prediction.winner, reason: prediction.reason, game_description: `${prediction.game.home_team} vs. ${prediction.game.away_team}`}
+           if (current_user.predictions) {
+            newUser.predictions = [...current_user.predictions, prediction]
+            newUser.test = [...current_user.test, newTest]
+           }
 
-            }
-            setPredictions(newPredictions)            
+           else {
+                newUser.predictions = [prediction]
+                newUser.test = [newTest]
+           }
+           setCurrentUser(newUser)          
               }
 
 
@@ -48,7 +52,7 @@ function GameLog ({current_user}) {
                 })}
             </ol>
             
-            <PredictionLog key={current_user.id} current_user={current_user} games={games} setGames={setGames} predictions={predictions} setPredictions={setPredictions}/>
+            <PredictionLog key={current_user.id} current_user={current_user} games={games} setGames={setGames} setCurrentUser={setCurrentUser}/>
 
         </div>
     )

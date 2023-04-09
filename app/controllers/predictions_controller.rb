@@ -6,12 +6,13 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
         
         if params[:user_id]
             user = User.find_by(id: params[:user_id])
+            game = Game.find_by(id: params[:game_id])
             predictions = user.predictions
         else
             predictions = Prediction.all
         end
         
-        render json: predictions, include: :user
+        render json: predictions, include: [:user, :game]
     end
 
     def create
