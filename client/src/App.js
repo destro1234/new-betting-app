@@ -31,7 +31,7 @@ function App() {
     return (
     <React.Fragment>
       <Header />
-      <Login onLogin={setCurrentUser} setCurrentUser={setCurrentUser} />
+      <Login />
     </React.Fragment>
     );
   }
