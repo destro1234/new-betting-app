@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import {UserContext} from '../context/user.js'
 
-function PredictionForm ({game, current_user, addPrediction, clicked, setClicked}) {
+
+function PredictionForm ({game, addPrediction, clicked, setClicked}) {
 
     const [winner, setWinner] = useState(null)
     const [reason, setReason] = useState(null)
+    const { currentUser } = useContext(UserContext)
 
    
     function handleSubmit(event) {
 
         event.preventDefault()
         
-        let new_prediction = {winner: winner, reason: reason, game_id: game.id, user_id: current_user.id}
+        let new_prediction = {winner: winner, reason: reason, game_id: game.id, user_id: currentUser.id}
         
 
-        fetch(`users/${current_user.id}/predictions`, {
+        fetch(`users/${currentUser.id}/predictions`, {
             
             method: "POST",
             headers: {'Content-Type' : 'application/json'},

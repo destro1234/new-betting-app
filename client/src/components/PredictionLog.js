@@ -1,11 +1,15 @@
-import React  from 'react'
+import React, {useContext}  from 'react'
 import PredictionsCard from './PredictionsCard.js'
+import {UserContext} from '../context/user.js'
 
-function PredictionLog({current_user, predictions, setPredictions, setCurrentUser }) {
+
+function PredictionLog() {
+
+    const { currentUser, setCurrentUser } = useContext(UserContext)
     
     function handleDelete(event, prediction) {
         console.log(prediction)
-        fetch(`users/${current_user.id}/predictions/${prediction.id}`, {
+        fetch(`users/${currentUser.id}/predictions/${prediction.id}`, {
             method: 'DELETE',
         })
         .then( r => r.json())
@@ -16,29 +20,28 @@ function PredictionLog({current_user, predictions, setPredictions, setCurrentUse
 
     function deletePrediction(p) {
     
-        let predIndx = current_user.predictions.findIndex((pred) => { return pred.id === p.id})
-        let testIndx = current_user.test.findIndex((test) => { return test.prediction === p})
+        let predIndx = currentUser.predictions.findIndex((pred) => { return pred.id === p.id})
+        let testIndx = currentUser.test.findIndex((test) => { return test.prediction === p})
         
-        current_user.predictions.splice(predIndx, 1)
-        current_user.test.splice(testIndx, 1)
-        const newUser = {...current_user}
+        currentUser.predictions.splice(predIndx, 1)
+        currentUser.test.splice(testIndx, 1)
+        const newUser = {...currentUser}
         setCurrentUser(newUser)
     }
 
 
     function editPrediction(p, showForm) {
     
-        let filteredPredictions = current_user.predictions.filter( (prediction) => prediction.id !== p.id )
-        let filteredTest = current_user.test.filter((test) => { return test.prediction.id !== p.id })
+        let filteredPredictions = currentUser.predictions.filter( (prediction) => prediction.id !== p.id )
+        let filteredTest = currentUser.test.filter((test) => { return test.prediction.id !== p.id })
         let editedTest = {winner: p.winner, reason: p.reason, game_description: `${p.game.home_team} vs. ${p.game.away_team}`, prediction: p}
 
     
-        current_user.predictions = [...filteredPredictions, p]
-        current_user.test = [...filteredTest, editedTest ]
+        currentUser.predictions = [...filteredPredictions, p]
+        currentUser.test = [...filteredTest, editedTest ]
 
         
-        const newUser = {...current_user}
-        console.group(newUser)
+        const newUser = {...currentUser}
         setCurrentUser(newUser)
         
     
@@ -60,15 +63,15 @@ function PredictionLog({current_user, predictions, setPredictions, setCurrentUse
 
     return (
         <div>
-            <h1>{current_user.username}'s Predictions: </h1>
+            <h1>{currentUser.username}'s Predictions: </h1>
             <ol>
-                { current_user.test ? current_user.test.map((t) => {
+                { currentUser.test ? currentUser.test.map((t) => {
                     
                         
                         return (
                             
                                 
-                               <PredictionsCard key={t.id} handleDelete={handleDelete} editPrediction={editPrediction} current_user={current_user} test={t}/>
+                               <PredictionsCard key={t.id} handleDelete={handleDelete} editPrediction={editPrediction} test={t}/>
                             )
                         
                         }) : null}

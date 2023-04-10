@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import GameCard from "./GameCard.js"
 import PredictionLog from './PredictionLog.js'
+import {UserContext} from '../context/user.js'
 
-function GameLog ({current_user, setCurrentUser }) {
+function GameLog () {
     const [games, setGames ] = useState([])
+
+    const { currentUser, setCurrentUser } = useContext(UserContext)
     
 
     
@@ -15,11 +18,11 @@ function GameLog ({current_user, setCurrentUser }) {
 
         function addPrediction (prediction) {
             console.log(prediction)
-            let newUser = {...current_user}
+            let newUser = {...currentUser}
             let newTest = {winner: prediction.winner, reason: prediction.reason, game_description: `${prediction.game.home_team} vs. ${prediction.game.away_team}`, prediction: prediction}
-           if (current_user.predictions) {
-            newUser.predictions = [...current_user.predictions, prediction]
-            newUser.test = [...current_user.test, newTest]
+           if (currentUser.predictions) {
+            newUser.predictions = [...currentUser.predictions, prediction]
+            newUser.test = [...currentUser.test, newTest]
            }
 
            else {
@@ -38,11 +41,11 @@ function GameLog ({current_user, setCurrentUser }) {
             <h1>These are the games tonight</h1>
             <ol>
                 {games.map((g) => {
-                    return <GameCard key={g.id} game={g} current_user={current_user} addPrediction={addPrediction} />
+                    return <GameCard key={g.id} game={g} addPrediction={addPrediction} />
                 })}
             </ol>
             
-            <PredictionLog key={current_user.id} current_user={current_user} games={games} setGames={setGames} setCurrentUser={setCurrentUser}/>
+            <PredictionLog key={currentUser.id} games={games} setGames={setGames}/>
 
         </div>
     )

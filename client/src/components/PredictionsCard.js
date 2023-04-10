@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import EditPredictionForm from "./EditPredictionForm.js"
 
-function PredictionsCard ({current_user, handleDelete, editPrediction, test }) {
-    
 
+function PredictionsCard ({ handleDelete, editPrediction, test }) {
+    
+    
     const [ editClicked, setEditClicked] = useState(false)
 
     function showForm() {
@@ -28,7 +29,7 @@ function PredictionsCard ({current_user, handleDelete, editPrediction, test }) {
                     <button onClick={(event) => handleDelete(event, test.prediction)}> Delete Prediction </button>
                     <button onClick={(event) => showForm(event)}> Edit Prediction </button>
 
-                    { editClicked ? <EditPredictionForm editPrediction={editPrediction}  test={test} showForm={showForm} current_user={current_user}/> : null }
+                    { editClicked ? <EditPredictionForm editPrediction={editPrediction}  test={test} showForm={showForm}/> : null }
                     </div>
                                       
                  </li>

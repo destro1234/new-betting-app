@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import {UserContext} from '../context/user.js'
 
-function EditPredictionForm ({test, editPrediction, showForm, current_user }) {
-    console.log(test)
+
+function EditPredictionForm ({test, editPrediction, showForm}) {
+    
+
+    const { currentUser } = useContext(UserContext)
+
+
     const [winner, setWinner] = useState("")
     const [reason, setReason] = useState("")
 
@@ -15,7 +21,7 @@ function EditPredictionForm ({test, editPrediction, showForm, current_user }) {
 
     function handleUpdate (event) {
         event.preventDefault()
-        fetch(`users/${current_user.id}/predictions/${test.prediction.id}`, {
+        fetch(`users/${currentUser.id}/predictions/${test.prediction.id}`, {
             method: "PATCH",
             headers: { "Content-Type" : "application/json"},
             body: (JSON.stringify({
