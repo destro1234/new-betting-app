@@ -1,9 +1,9 @@
 class PredictionsController < ApplicationController
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def index
-        
         if params[:user_id]
             user = User.find_by(id: params[:user_id])
             game = Game.find_by(id: params[:game_id])
@@ -18,6 +18,9 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     def create
         prediction = Prediction.create!(predictions_params)
         render json: prediction, include: :game
+    rescue ActiveRecord::RecordInvalid => e
+        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
+      end
     end
 
     def show
@@ -47,8 +50,15 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     end
 
     def record_not_found
-        render json: { error: "Prediction not found" }, status: :not_found
+
+    rescue ActiveRecord::RecordInvalid => e
+        render json: { error: e.record.errors.full_messages }, status: :not_found
 
     end
 
-end
+    def record_invalid
+    rescue ActiveRecord::RecordInvalid => e
+        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
+
+    end
+

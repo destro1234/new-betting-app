@@ -7,6 +7,7 @@ function PredictionForm ({game, addPrediction, clicked, setClicked}) {
     const [winner, setWinner] = useState(null)
     const [reason, setReason] = useState(null)
     const { currentUser } = useContext(UserContext)
+    const [errors, setErrors] = useState([])
 
    
     function handleSubmit(event) {
@@ -22,10 +23,13 @@ function PredictionForm ({game, addPrediction, clicked, setClicked}) {
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(new_prediction)
         })
-        .then( res => res.json())
-        .then( data => {
-            addPrediction(data, game)
-        })
+        .then( res => {
+            if (res.ok) {
+                res.json().then( data => {addPrediction(data)}) 
+            }
+            
+            })
+        
         setClicked(!clicked)
     }
     

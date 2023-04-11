@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import {UserContext} from '../context/user.js'
 
 
-function Login({ onLogin, setCurrentUser }) {
+function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { currentUser, setCurrentUser } = useContext(UserContext)
@@ -17,7 +17,7 @@ function Login({ onLogin, setCurrentUser }) {
         body: JSON.stringify({ username, password}),
       }).then((r) => {
         if (r.ok) {
-          r.json().then((user) => onLogin(user));
+          r.json().then((user) => setCurrentUser(user));
         }
       });
     }
