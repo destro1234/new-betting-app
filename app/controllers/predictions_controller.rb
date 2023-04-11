@@ -1,7 +1,7 @@
 class PredictionsController < ApplicationController
 
-# rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-# rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
 
     def index
         if params[:user_id]
@@ -47,8 +47,8 @@ class PredictionsController < ApplicationController
         params.permit(:id, :winner, :reason, :game_id, :user_id, :prediction)
     end
 
-    def record_not_found
-        render json: { error: "Prediction not found" }, status: :not_found
+    def record_not_found(exception)
+        render json: { error: exception.record.errors.full_messages }, status: :not_found
 
     end
     # def record_invalid
@@ -56,5 +56,10 @@ class PredictionsController < ApplicationController
     #     render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
 
     # end
+
+    def render_unprocessable_entity(exception)
+        render json: {errors: exception.record.errors.full_messages}, status: :unprocessable_entity
+        
+    end
 end
 
