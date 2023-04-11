@@ -7,30 +7,38 @@ function PredictionForm ({game, addPrediction, clicked, setClicked}) {
     const [winner, setWinner] = useState(null)
     const [reason, setReason] = useState(null)
     const { currentUser } = useContext(UserContext)
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors ] = useState([])
 
    
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
 
         event.preventDefault()
         
         let new_prediction = {winner: winner, reason: reason, game_id: game.id, user_id: currentUser.id}
         
 
-        fetch(`users/${currentUser.id}/predictions`, {
+       const response = await fetch(`users/${currentUser.id}/predictions`, {
             
             method: "POST",
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(new_prediction)
         })
-        .then( res => {
-            if (res.ok) {
-                res.json().then( data => {addPrediction(data)}) 
+        const data = await response.json();
+        
+            
+            if (response.ok) {
+               
+                addPrediction(data)
+                setClicked(!clicked)
+                
+            }
+
+            else {
+                setErrors(data.errors)
             }
             
-            })
         
-        setClicked(!clicked)
+        
     }
     
     function handleWinner(event) {
@@ -53,6 +61,14 @@ function PredictionForm ({game, addPrediction, clicked, setClicked}) {
           <label> Reason: </label>
           <br></br>
           <textarea rows={4} cols={50} onChange={handleReason} type="text" placeholder="reason"></textarea>
+
+          {errors.length > 0 && (
+            <ul style={{ color: "red" }}>
+                {errors.map((error) => (
+            <li key={error}>{error}</li>
+                ))}
+            </ul>
+  )}
           <button onClick={handleSubmit} type="submit">Submit</button>
         </form>
         </div>

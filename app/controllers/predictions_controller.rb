@@ -1,7 +1,7 @@
 class PredictionsController < ApplicationController
 
-rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+# rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+# rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def index
         if params[:user_id]
@@ -20,7 +20,6 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
         render json: prediction, include: :game
     rescue ActiveRecord::RecordInvalid => e
         render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
-      end
     end
 
     def show
@@ -31,7 +30,6 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     def destroy
         prediction = Prediction.find(params[:id])
         prediction.destroy
-        # head :no_content
         render json:{}
         
     end
@@ -50,15 +48,13 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     end
 
     def record_not_found
-
-    rescue ActiveRecord::RecordInvalid => e
-        render json: { error: e.record.errors.full_messages }, status: :not_found
+        render json: { error: "Prediction not found" }, status: :not_found
 
     end
+    # def record_invalid
+    # rescue ActiveRecord::RecordInvalid => e
+    #     render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
 
-    def record_invalid
-    rescue ActiveRecord::RecordInvalid => e
-        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
-
-    end
+    # end
+end
 
